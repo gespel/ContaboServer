@@ -18,5 +18,7 @@ spec:
       containers:
       - name: bundestagswatch-app-pod
         image: gespel/bundestagswatch:1.0
+        ports:
+        - containerPort: 5000
         env:
 
