@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: personal-website
+  name: personal-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: personal-website
+  template:
+    metadata:
+      labels:
+        name: personal-website
+      name: personal-website
+    spec:
+      containers:
+      - name: personal-website-pod
+        image: gespel/stenswebsite:1.0
+        env:
+

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: bundestagswatch-app
+  name: bundestagswatch-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: bundestagswatch-app
+  template:
+    metadata:
+      labels:
+        name: bundestagswatch-app
+      name: bundestagswatch-app
+    spec:
+      containers:
+      - name: bundestagswatch-app-pod
+        image: gespel/bundestagswatch:1.0
+        env:
+
