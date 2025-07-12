@@ -1,32 +1,22 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: personal-website-ingress
+  name: climate-ingress
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
 spec:
   rules:
-  - host: sten-heimbrodt.de
+  - host: climate.sten-heimbrodt.de
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: personal-website-service
-            port:
-              number: 80
-  - host: www.sten-heimbrodt.de
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: personal-website-service
+            name: climate-service
             port:
               number: 80
   tls:
   - hosts:
-    - sten-heimbrodt.de
+    - climate.sten-heimbrodt.de

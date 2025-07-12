@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: climate-app
+  name: climate-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: climate-app
+  template:
+    metadata:
+      labels:
+        name: climate-app
+      name: climate-app
+    spec:
+      containers:
+      - name: climate-app-pod
+        image: gespel/climate:1.0
+        ports:
+        - containerPort: 80
+        env:
+
