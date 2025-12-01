@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: personal-website-pod
-        image: gespel/stenswebsite:1.1
+        image: gespel/stenswebsite:1.2
         ports:
         - containerPort: 8080
         env: []
