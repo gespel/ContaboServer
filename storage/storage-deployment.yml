@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: storage-app
+  name: storage-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: storage-app
+  template:
+    metadata:
+      labels:
+        name: storage-app
+      name: storage-app
+    spec:
+      containers:
+      - name: storage-app-pod
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: data
+          mountPath: /data
+          readOnly: true
+        - name: nginx-conf
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+      volumes:
+      - name: data
+        hostPath:
+          path: /var/www/storage
+          type: Directory
+      - name: nginx-conf
+        configMap:
+          name: storage-nginx-conf
