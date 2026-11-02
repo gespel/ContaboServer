@@ -1,0 +1,25 @@
+# The mailserver (docker-mailserver) runs outside the cluster via Podman
+# (/root/PodmanApps/Mailserver). Traefik owns ports 80/443 and answers every
+# HTTP-01 ACME challenge itself, so certbot cannot renew certs on this host.
+#
+# This route exists only so that Traefik's "letsencrypt" resolver obtains and
+# renews a certificate for mail.sten-heimbrodt.de. docker-mailserver reads it
+# directly from Traefik's acme.json (SSL_TYPE=letsencrypt).
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mail-cert
+  namespace: mail
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`mail.sten-heimbrodt.de`)
+      kind: Rule
+      services:
+        - name: noop@internal
+          kind: TraefikService
+  tls:
+    certResolver: letsencrypt
+    domains:
+      - main: mail.sten-heimbrodt.de
